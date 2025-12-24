@@ -11,11 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* --- DESIGN SYSTEM (NEST INSPIRED) --- */
+        /* --- DESIGN SYSTEM --- */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #EBE9E4; /* Warm Limestone */
-            color: #2B2B2B; /* Soft Charcoal */
+            background-color: #EBE9E4; 
+            color: #2B2B2B;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
@@ -23,9 +23,7 @@
             font-family: 'Cormorant Garamond', serif;
         }
 
-        /* --- ANIMATION ENGINE (NEST JOURNEYS STYLE) --- */
-        
-        /* 1. De Reveal Up Class (voor tekst en kaarten) */
+        /* --- 1. REVEAL ANIMATIE (Voor tekstblokken) --- */
         .reveal-up {
             opacity: 0;
             transform: translateY(40px) scale(0.98);
@@ -37,32 +35,33 @@
             transform: translateY(0) scale(1);
         }
 
-        /* 2. Visual Interaction (Exacte kopie van Journeys.html logica, aangepast aan Lindy kleuren) */
+        /* --- 2. LAB VISUAL ANIMATIE (Voor afbeeldingen) --- */
+        /* Container style */
         .lab-visual {
             position: relative;
             overflow: hidden;
-            /* Lichte border in rust (aangepast voor lichte achtergrond) */
             border: 1px solid rgba(43, 43, 43, 0.1); 
-            transition: border-color 0.6s ease;
+            transition: border-color 1s ease;
+            background-color: #EBE9E4; /* Voorkomt flitsen */
         }
 
-        /* Hover OF Active (voor mobiel scrollen) triggert de border kleur */
-        .lab-visual:hover,
-        .lab-visual.active {
-            border-color: #C67D53; /* Lindy Accent Kleur */
-        }
-
+        /* STARTSTAAT: Zwart-wit, transparanter, iets uitgezoomd (of normaal) */
         .lab-visual img, 
         .lab-visual video {
-            /* De 'Journeys' easing curve */
-            transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.6s ease, filter 0.6s ease;
+            transition: transform 1.5s cubic-bezier(0.2, 1, 0.3, 1), opacity 1s ease, filter 1s ease;
             filter: grayscale(100%);
             opacity: 0.6;
             transform: scale(1.0);
             will-change: transform, filter, opacity;
+            display: block;
         }
 
-        /* Hover OF Active (voor mobiel scrollen) triggert de "Bloom" */
+        /* EINDSTAAT (Getriggerd door JS .active of Hover op desktop) */
+        .lab-visual:hover,
+        .lab-visual.active {
+            border-color: #C67D53;
+        }
+
         .lab-visual:hover img, 
         .lab-visual:hover video,
         .lab-visual.active img, 
@@ -75,7 +74,6 @@
         /* --- UTILS --- */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
     </style>
 </head>
 <body class="relative selection:bg-[#C67D53] selection:text-white">
@@ -101,7 +99,7 @@
                 <img src="./assets/warm_limestone.jpg" alt="Structure" class="w-full h-full object-cover">
             </div>
             
-            <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12 z-30">
+            <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12 z-30 pointer-events-none">
                 <div class="overflow-hidden">
                     <p class="font-sans text-xs tracking-[0.2em] uppercase text-[#8A9A8B] mb-2">Osteopathie</p>
                 </div>
@@ -119,7 +117,7 @@
                 </video>
             </div>
 
-            <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12 md:items-end md:text-right z-30">
+            <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12 md:items-end md:text-right z-30 pointer-events-none">
                 <div class="overflow-hidden">
                     <p class="font-sans text-xs tracking-[0.2em] uppercase text-[#C67D53] mb-2">Tai Chi & Lymfe</p>
                 </div>
@@ -181,12 +179,12 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#2B2B2B]/10 border border-[#2B2B2B]/10 shadow-sm">
                 
-                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between cursor-pointer lab-visual reveal-up">
+                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between cursor-pointer lab-visual">
                     <div class="absolute inset-0 z-0 overflow-hidden">
                         <img src="./assets/whitestone.jpg" alt="" class="w-full h-full object-cover">
                     </div>
 
-                    <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full">
+                    <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full pointer-events-none">
                         <div class="absolute top-0 right-0 p-8 text-[#C67D53]">
                             <span class="iconify" data-icon="lucide:move-up-right" data-width="24"></span>
                         </div>
@@ -201,12 +199,12 @@
                     </div>
                 </div>
 
-                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between cursor-pointer lab-visual reveal-up" style="transition-delay: 0.1s;">
+                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between cursor-pointer lab-visual">
                     <div class="absolute inset-0 z-0 overflow-hidden">
                          <img src="./assets/magnesiumpowder.jpg" alt="" class="w-full h-full object-cover">
                     </div>
 
-                    <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full">
+                    <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full pointer-events-none">
                          <div class="absolute top-0 right-0 p-8 text-[#C67D53]">
                             <span class="iconify" data-icon="lucide:move-up-right" data-width="24"></span>
                         </div>
@@ -221,12 +219,12 @@
                     </div>
                 </div>
 
-                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between cursor-pointer lab-visual reveal-up">
+                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between cursor-pointer lab-visual">
                     <div class="absolute inset-0 z-0 overflow-hidden">
                          <img src="./assets/handmovinggracefully.jpg" alt="" class="w-full h-full object-cover">
                     </div>
 
-                    <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full">
+                    <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full pointer-events-none">
                          <div class="absolute top-0 right-0 p-8 text-[#C67D53]">
                             <span class="iconify" data-icon="lucide:move-up-right" data-width="24"></span>
                         </div>
@@ -241,12 +239,12 @@
                     </div>
                 </div>
 
-                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between cursor-pointer lab-visual reveal-up" style="transition-delay: 0.1s;">
+                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between cursor-pointer lab-visual">
                     <div class="absolute inset-0 z-0 overflow-hidden">
                          <img src="./assets/sagegreenleaf.jpg" alt="" class="w-full h-full object-cover">
                     </div>
 
-                    <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full">
+                    <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full pointer-events-none">
                          <div class="absolute top-0 right-0 p-8 text-[#C67D53]">
                             <span class="iconify" data-icon="lucide:move-up-right" data-width="24"></span>
                         </div>
@@ -293,7 +291,7 @@
                     </div>
                 </div>
             </div>
-            <div class="w-full md:w-1/2 order-1 md:order-2 reveal-up" style="transition-delay: 0.1s;">
+            <div class="w-full md:w-1/2 order-1 md:order-2">
                 <div class="relative aspect-[4/5] overflow-hidden group shadow-2xl lab-visual">
                     <img src="./assets/lindyintens.jpg" alt="Lindy Portrait" class="w-full h-full object-cover">
                     <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 text-white/30 mix-blend-soft-light" viewBox="0 0 100 100">
@@ -342,7 +340,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // 1. Reveal Animatie voor Tekst en Blokken
+            // 1. Reveal Animatie voor Tekst (Scroll van beneden naar boven)
             const observerReveal = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -353,22 +351,24 @@
                 threshold: 0.1,
                 rootMargin: "0px 0px -50px 0px"
             });
-
             document.querySelectorAll('.reveal-up').forEach((el) => observerReveal.observe(el));
 
-            // 2. Lab Visual Animatie (Zorgt dat afbeeldingen 'activeren' bij scrollen op mobiel)
+            // 2. Lab Visual Animatie (Zwart-wit -> Kleur met VERTRAGING voor zichtbaarheid)
             const observerVisuals = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Voegt 'active' toe, wat in CSS hetzelfde doet als :hover
-                        entry.target.classList.add('active');
+                        // We voegen een kleine vertraging toe (250ms).
+                        // Hierdoor ziet de gebruiker EERST de zwart-wit versie, 
+                        // en ziet hij het daarna pas veranderen naar kleur.
+                        setTimeout(() => {
+                            entry.target.classList.add('active');
+                        }, 250); 
                     }
                 });
             }, {
-                threshold: 0.2, // Iets later triggeren voor het "inbloeien" effect
+                threshold: 0.25, // Pas activeren als 25% van de kaart in beeld is
                 rootMargin: "0px"
             });
-
             document.querySelectorAll('.lab-visual').forEach((el) => observerVisuals.observe(el));
         });
     </script>
