@@ -23,7 +23,7 @@
             font-family: 'Cormorant Garamond', serif;
         }
 
-        /* --- 1. INTRO ANIMATIE (De kaart verschijnt) --- */
+        /* --- 1. INTRO ANIMATIE --- */
         .reveal-up {
             opacity: 0;
             transform: translateY(40px) scale(0.98);
@@ -35,8 +35,7 @@
             transform: translateY(0) scale(1);
         }
 
-        /* --- 2. INTERACTIE ANIMATIE (Zwart-wit naar Kleur) --- */
-        
+        /* --- 2. INTERACTIE ANIMATIE --- */
         .lab-visual {
             position: relative;
             overflow: hidden;
@@ -45,25 +44,23 @@
             background-color: #EBE9E4;
         }
 
-        /* RUSTSTAAT: Zwart-wit, iets transparant */
+        /* RUSTSTAAT */
         .lab-visual img, 
         .lab-visual video {
             transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease, filter 0.8s ease;
             filter: grayscale(100%);
-            opacity: 0.6;
+            opacity: 0.7; /* Iets verhoogd voor betere zichtbaarheid basis */
             transform: scale(1.0);
             will-change: transform, filter, opacity;
             display: block;
         }
 
-        /* ACTIEVE STAAT (Muis Hover OF Mobiele Focus Class) */
-        /* De border kleurt */
+        /* ACTIEVE STAAT */
         .lab-visual:hover,
         .lab-visual.mobile-active {
             border-color: #C67D53;
         }
 
-        /* De afbeelding bloeit open (kleur + zoom) */
         .lab-visual:hover img, 
         .lab-visual:hover video,
         .lab-visual.mobile-active img, 
@@ -74,8 +71,14 @@
         }
 
         /* --- UTILS --- */
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .text-shadow-sm { text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        
+        /* Zorgt dat gradients niet over de images flikkeren */
+        .overlay-gradient {
+            pointer-events: none;
+            background: linear-gradient(to top, rgba(235, 233, 228, 0.9) 0%, rgba(235, 233, 228, 0) 60%);
+            z-index: 20;
+        }
     </style>
 </head>
 <body class="relative selection:bg-[#C67D53] selection:text-white">
@@ -87,7 +90,7 @@
         </a>
     </nav>
 
-    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center p-1.5 bg-[#2B2B2B]/5 backdrop-blur-xl rounded-full border border-[#2B2B2B]/10 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] hover:shadow-[0_10px_40px_-10px_rgba(198,125,83,0.3)] transition-all duration-500 reveal-up">
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center p-1.5 bg-[#2B2B2B]/5 backdrop-blur-xl rounded-full border border-[#2B2B2B]/10 shadow-xl hover:shadow-[#C67D53]/20 transition-all duration-500 reveal-up">
         <a href="https://wa.me/31654323454" target="_blank" class="px-8 h-12 flex items-center gap-3 rounded-full bg-[#C67D53] text-[#EBE9E4] hover:bg-[#A86440] transition-all duration-500 text-xs tracking-widest uppercase font-medium no-underline">
             <span>Boek Sessie</span>
             <span class="iconify" data-icon="lucide:arrow-right" data-width="14" data-stroke-width="1.5"></span>
@@ -96,22 +99,24 @@
 
     <header class="relative w-full h-screen min-h-[700px] flex flex-col md:flex-row overflow-hidden">
         
-        <div class="relative w-full md:w-1/2 h-1/2 md:h-full overflow-hidden border-b md:border-b-0 md:border-r border-[#2B2B2B]/10 lab-visual">
+        <div class="relative w-full md:w-1/2 h-1/2 md:h-full overflow-hidden border-b md:border-b-0 md:border-r border-[#2B2B2B]/10 lab-visual group">
             <div class="absolute inset-0 bg-[#EBE9E4]">
                 <img src="./assets/warm_limestone.jpg" alt="Structure" class="w-full h-full object-cover">
             </div>
             
-            <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12 z-30 pointer-events-none">
-                <div class="overflow-hidden">
-                    <p class="font-sans text-xs tracking-[0.2em] uppercase text-[#8A9A8B] mb-2">Osteopathie</p>
+            <div class="absolute inset-0 overlay-gradient opacity-80 md:opacity-60"></div>
+            
+            <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-16 z-30 pointer-events-none">
+                <div class="max-w-xs">
+                    <p class="font-sans text-xs tracking-[0.2em] uppercase text-[#C67D53] mb-3 font-medium">Osteopathie</p>
+                    <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2B2B2B] tracking-tight leading-[0.95]">
+                        Restore<br><span class="italic text-[#8A9A8B]">Structure</span>
+                    </h2>
                 </div>
-                <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2B2B2B] tracking-tight leading-none">
-                    Restore<br><span class="italic text-[#8A9A8B]">Structure</span>
-                </h2>
             </div>
         </div>
 
-        <div class="relative w-full md:w-1/2 h-1/2 md:h-full overflow-hidden lab-visual">
+        <div class="relative w-full md:w-1/2 h-1/2 md:h-full overflow-hidden lab-visual group">
             <div class="absolute inset-0 bg-[#EBE9E4]">
                 <video autoplay loop muted playsinline class="w-full h-full object-cover">
                     <source src="./assets/videoheaderlindy.mp4" type="video/mp4">
@@ -119,20 +124,22 @@
                 </video>
             </div>
 
-            <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12 md:items-end md:text-right z-30 pointer-events-none">
-                <div class="overflow-hidden">
-                    <p class="font-sans text-xs tracking-[0.2em] uppercase text-[#C67D53] mb-2">Tai Chi & Lymfe</p>
+            <div class="absolute inset-0 overlay-gradient opacity-80 md:opacity-60"></div>
+
+            <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-16 md:items-end md:text-right z-30 pointer-events-none">
+                <div class="max-w-xs">
+                    <p class="font-sans text-xs tracking-[0.2em] uppercase text-[#C67D53] mb-3 font-medium">Tai Chi & Lymfe</p>
+                    <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2B2B2B] tracking-tight leading-[0.95]">
+                        Release<br><span class="italic text-[#8A9A8B]">Flow</span>
+                    </h2>
                 </div>
-                <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-[#2B2B2B] tracking-tight leading-none">
-                    Release<br><span class="italic text-[#C67D53]">Flow</span>
-                </h2>
             </div>
         </div>
 
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-full z-40 pointer-events-none mix-blend-darken px-4 reveal-up">
-            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tighter text-[#2B2B2B] leading-[0.9]">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-full max-w-2xl px-6 z-40 pointer-events-none reveal-up">
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tighter text-[#2B2B2B] leading-[0.9] drop-shadow-sm">
                 Architect<br>
-                <span class="text-3xl md:text-4xl lg:text-5xl italic font-light tracking-normal block mt-2">of the Body</span>
+                <span class="text-3xl md:text-4xl lg:text-5xl italic font-light tracking-normal block mt-2 text-[#5c5c5c]">of the Body</span>
             </h1>
         </div>
     </header>
@@ -146,7 +153,7 @@
                 </div>
                 
                 <div class="aspect-[3/4] rounded-sm relative shadow-xl lab-visual">
-                    <img src="./assets/humanback.jpg" alt="Lindy treating leg" class="object-cover w-full h-full">
+                    <img src="./assets/lindybeen.jpg" alt="Lindy treating leg" class="object-cover w-full h-full">
                 </div>
             </div>
             
@@ -295,7 +302,7 @@
             </div>
             <div class="w-full md:w-1/2 order-1 md:order-2">
                 <div class="relative aspect-[4/5] overflow-hidden group shadow-2xl lab-visual">
-                    <img src="./assets/lindyosteo.jpg" alt="Lindy Portrait" class="w-full h-full object-cover">
+                    <img src="./assets/lindyintens.jpg" alt="Lindy Portrait" class="w-full h-full object-cover">
                     <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 text-white/30 mix-blend-soft-light" viewBox="0 0 100 100">
                         <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="0.5" fill="none"></circle>
                         <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="0.5" fill="none"></circle>
@@ -342,7 +349,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // 1. REVEAL SCRIPT (Zorgt dat tekst en blokken mooi invliegen)
+            // 1. REVEAL SCRIPT
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -355,28 +362,23 @@
             });
             document.querySelectorAll('.reveal-up').forEach((el) => revealObserver.observe(el));
 
-            // 2. MOBIELE FOCUS SCRIPT (Zorgt voor de "Interactie" op mobiel)
-            // Dit script draait ALLEEN als het apparaat Touch heeft (dus niet op desktop)
+            // 2. MOBIELE FOCUS SCRIPT (Alleen touch)
             if (window.matchMedia("(pointer: coarse)").matches) {
-                
                 const focusObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
-                        // Als de afbeelding in het MIDDEN van het scherm komt (isIntersecting met threshold 0.5)
                         if (entry.isIntersecting) {
                             entry.target.classList.add('mobile-active');
                         } else {
-                            // Als hij het midden verlaat -> Terug naar ruststaat (Verwijder active)
                             entry.target.classList.remove('mobile-active');
                         }
                     });
                 }, {
-                    threshold: 0.5, // Moet voor 50% zichtbaar zijn om te activeren
-                    rootMargin: "-10% 0px -10% 0px" // Maakt de 'actieve zone' in het midden van het scherm
+                    threshold: 0.5, 
+                    rootMargin: "-10% 0px -10% 0px"
                 });
 
                 document.querySelectorAll('.lab-visual').forEach((el) => focusObserver.observe(el));
             }
-            // Op Desktop doet Javascript NIETS met de afbeeldingen, daar regelt CSS :hover alles.
         });
     </script>
 
