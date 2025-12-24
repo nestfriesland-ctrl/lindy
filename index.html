@@ -1,383 +1,344 @@
 <!DOCTYPE html>
-<html lang="nl" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lindy | Organic Engineering</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
-    
+    <title>Professional Services</title>
     <style>
-        /* --- DESIGN SYSTEM --- */
+        /* --- General Reset & Typography --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #EBE9E4; 
-            color: #2B2B2B;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-        h1, h2, h3, h4, h5, h6, .font-serif {
-            font-family: 'Cormorant Garamond', serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
         }
 
-        /* --- 1. INTRO ANIMATIE --- */
-        .reveal-up {
-            opacity: 0;
-            transform: translateY(40px) scale(0.98);
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
-        }
-        .reveal-up.in-view {
-            opacity: 1;
-            transform: translateY(0) scale(1);
+        /* --- Navigation --- */
+        nav {
+            background-color: #ffffff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between; /* Pushes Logo Left, Menu Right */
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        /* --- 2. INTERACTIE ANIMATIE --- */
-        .lab-visual {
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            /* Force left alignment context */
+            margin-right: auto; 
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #000;
+        }
+
+        /* --- Hero Section --- */
+        header {
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            background-color: #2c3e50;
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #4ca1af;
+        }
+
+        /* --- Mobile Responsive Fixes --- */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                /* Explicitly ensuring left alignment on mobile */
+                text-align: left;
+                flex-grow: 1; 
+            }
+
+            .nav-links {
+                display: none; /* Hidden for simplicity in this demo */
+            }
+            
+            /* Simple Hamburger Placeholder */
+            .hamburger {
+                display: block;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* --- Review Carousel (Footer) --- */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 4rem 0;
+            overflow: hidden; /* Hide scrollbar */
             position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(43, 43, 43, 0.1); 
-            transition: border-color 0.8s ease;
-            background-color: #EBE9E4;
         }
 
-        /* RUSTSTAAT */
-        .lab-visual img, 
-        .lab-visual video {
-            transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease, filter 0.8s ease;
-            filter: grayscale(100%);
-            opacity: 0.9; 
-            transform: scale(1.0);
-            will-change: transform, filter, opacity;
-            display: block;
+        .footer-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            opacity: 0.9;
         }
 
-        /* ACTIEVE STAAT */
-        .lab-visual:hover,
-        .lab-visual.mobile-active {
-            border-color: #C67D53;
+        /* The Sliding Track */
+        .carousel-track {
+            display: flex;
+            gap: 2rem;
+            width: max-content; /* Allows content to stretch */
+            animation: scroll 20s linear infinite;
         }
 
-        .lab-visual:hover img, 
-        .lab-visual:hover video,
-        .lab-visual.mobile-active img, 
-        .lab-visual.mobile-active video {
-            transform: scale(1.05);
-            opacity: 1;
-            filter: grayscale(0%);
+        /* The Review Card */
+        .review-card {
+            background: white;
+            color: #333;
+            width: 300px;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            flex-shrink: 0;
         }
 
-        /* --- UTILS --- */
-        .overlay-gradient {
-            pointer-events: none;
-            background: linear-gradient(to top, rgba(235, 233, 228, 1) 0%, rgba(235, 233, 228, 0.7) 40%, rgba(235, 233, 228, 0) 100%);
-            z-index: 20;
+        .stars {
+            color: #f1c40f; /* Google Star Yellow */
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
         }
-        
-        .nav-backdrop {
-            background: linear-gradient(to bottom, rgba(235, 233, 228, 0.95) 0%, rgba(235, 233, 228, 0) 100%);
+
+        .review-text {
+            font-style: italic;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
         }
+
+        .review-author {
+            font-weight: bold;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .google-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Animation Keyframes */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%); /* Moves half way, needs duplicate content for seamless loop */
+            }
+        }
+
+        /* Pause on hover for readability */
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+
     </style>
 </head>
-<body class="relative selection:bg-[#C67D53] selection:text-white">
+<body>
 
-    <nav class="fixed top-0 left-0 w-full z-50 pointer-events-none nav-backdrop h-24 transition-all duration-500">
-        <div class="px-6 py-6 flex justify-between items-center h-full">
-            
-            <a href="#" class="pointer-events-auto group relative flex items-center">
-                <img src="assets/logolindy.png" alt="Lindy Logo" class="h-[7.5rem] w-auto object-contain mix-blend-multiply">
-            </a>
-
-            <a href="https://wa.me/31654323454" target="_blank" class="pointer-events-auto group flex items-center gap-3 px-5 h-10 rounded-full bg-[#EBE9E4]/40 backdrop-blur-md border border-[#C67D53]/40 text-[#2B2B2B] hover:bg-[#C67D53]/10 hover:border-[#C67D53] transition-all duration-300">
-                <span class="text-[10px] md:text-xs tracking-widest uppercase font-medium">Boek Sessie</span>
-                <span class="iconify group-hover:translate-x-0.5 transition-transform duration-300" data-icon="lucide:arrow-right" data-width="14"></span>
-            </a>
-
-        </div>
-    </nav>
-
-    <header class="relative w-full h-[100svh] min-h-[600px] flex flex-col md:flex-row overflow-hidden">
+    <nav>
+        <div class="logo">LOGO</div>
+        <div class="hamburger" style="display:none;">&#9776;</div> 
         
-        <div class="relative w-full h-[50%] md:w-1/2 md:h-full overflow-hidden border-b border-[#2B2B2B]/10 md:border-b-0 md:border-r lab-visual group">
-            <div class="absolute inset-0 bg-[#EBE9E4]">
-                <img src="./assets/warm_limestone.jpg" alt="Structure" class="w-full h-full object-cover">
-            </div>
-            
-            <div class="absolute inset-0 overlay-gradient opacity-100 md:opacity-80"></div>
-            
-            <div class="absolute inset-0 flex flex-col justify-end p-6 md:p-16 z-30 pointer-events-none pb-10 md:pb-16">
-                <div class="max-w-md relative z-40">
-                    <p class="font-sans text-[10px] md:text-xs tracking-[0.2em] uppercase text-[#C67D53] mb-2 md:mb-3 font-bold">Osteopathie</p>
-                    <h2 class="font-serif text-4xl md:text-6xl text-[#2B2B2B] tracking-tight leading-none font-light">
-                        Restore<br><span class="italic text-[#5A6A5B] font-light">Structure</span>
-                    </h2>
-                </div>
-            </div>
-        </div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        
+        </nav>
 
-        <div class="relative w-full h-[50%] md:w-1/2 md:h-full overflow-hidden lab-visual group">
-            <div class="absolute inset-0 bg-[#EBE9E4]">
-                <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                    <source src="./assets/videoheaderlindy.mp4" type="video/mp4">
-                    <img src="./assets/waterripples.jpg" alt="Fallback" class="w-full h-full object-cover">
-                </video>
-            </div>
-
-            <div class="absolute inset-0 overlay-gradient opacity-100 md:opacity-80"></div>
-
-            <div class="absolute inset-0 flex flex-col justify-end p-6 md:p-16 md:items-end md:text-right z-30 pointer-events-none pb-28 md:pb-16">
-                <div class="max-w-md relative z-40">
-                    <p class="font-sans text-[10px] md:text-xs tracking-[0.2em] uppercase text-[#C67D53] mb-2 md:mb-3 font-bold">Tai Chi & Lymfe</p>
-                    <h2 class="font-serif text-4xl md:text-6xl text-[#2B2B2B] tracking-tight leading-none font-light">
-                        Release<br><span class="italic text-[#5A6A5B] font-light">Flow</span>
-                    </h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="absolute inset-0 flex items-center justify-center z-40 pointer-events-none reveal-up">
-            <div class="text-center w-full px-2">
-                <h1 class="font-serif text-[13vw] md:text-7xl lg:text-8xl tracking-tighter text-[#2B2B2B] leading-[0.9] drop-shadow-sm mix-blend-hard-light opacity-90 font-light w-full">
-                    Architect<br>
-                    <span class="text-[6vw] md:text-4xl lg:text-5xl italic font-light tracking-normal block mt-1 text-[#4A4A4A]">of the Body</span>
-                </h1>
-            </div>
-        </div>
+    <header>
+        <h1>Elevate Your Business</h1>
+        <p>Expert guidance and professional services tailored to help you reach your goals. Let's build something great together.</p>
+        <a href="#" class="cta-button">Get in Touch</a>
     </header>
 
-    <section class="py-20 md:py-32 px-6 md:px-12 bg-[#EBE9E4]">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
-            <div class="md:col-span-4 reveal-up">
-                <div class="flex items-center gap-3 mb-6">
-                    <span class="h-[1px] w-8 bg-[#C67D53]"></span>
-                    <span class="font-sans text-xs tracking-[0.15em] uppercase text-[#2B2B2B] font-medium">Filosofie</span>
-                </div>
-                
-                <div class="aspect-[3/4] rounded-sm relative shadow-xl lab-visual">
-                    <img src="./assets/humanback.jpg" alt="Lindy treating leg" class="object-cover w-full h-full">
-                </div>
-            </div>
-            
-            <div class="md:col-span-8 md:pl-12 flex flex-col gap-6 md:gap-8 reveal-up" style="transition-delay: 0.1s;">
-                <h2 class="font-serif text-3xl md:text-6xl text-[#2B2B2B] leading-[1.1] tracking-tight font-light">
-                    Engineering the organism.<br>
-                    <span class="text-[#8A9A8B] italic">Where biomechanics meet serenity.</span>
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-2">
-                    <p class="font-sans text-sm md:text-base leading-relaxed text-[#2B2B2B]/80 font-light">
-                        We zien het lichaam niet als een machine die simpelweg 'gerepareerd' moet worden, maar als een dynamisch landschap dat onderhoud vraagt. Mijn praktijk slaat de brug tussen de structurele precisie van osteopathie en de vloeiende intuïtie van Oosters lichaamswerk.
-                    </p>
-                    <p class="font-sans text-sm md:text-base leading-relaxed text-[#2B2B2B]/80 font-light">
-                        Van 'high-performance' onderhoud voor atleten tot diepe restauratie van het zenuwstelsel: wij engineeren een staat van 'grounded serenity'. Zodat jouw lichaam kan terugkeren naar zijn natuurlijke blauwdruk.
-                    </p>
-                </div>
-                <div class="mt-4">
-                    <a href="#" class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#C67D53] border-b border-[#C67D53]/30 pb-1 hover:border-[#C67D53] transition-colors font-medium">
-                        Lees het Manifest <span class="iconify" data-icon="lucide:arrow-up-right" data-width="14"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
+    <section style="padding: 4rem 2rem; text-align: center;">
+        <h2 style="margin-bottom: 1rem;">Our Services</h2>
+        <p style="max-width: 700px; margin: 0 auto; color: #666;">
+            We offer a wide range of consultancy and creative services designed to boost your productivity and brand visibility.
+        </p>
     </section>
 
-    <section class="py-20 px-6 md:px-12 bg-[#EBE9E4] border-t border-[#2B2B2B]/10">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between md:items-end mb-12 reveal-up gap-2">
-                <h3 class="font-serif text-3xl md:text-5xl text-[#2B2B2B] tracking-tight font-light">Interventions</h3>
-                <span class="font-sans text-[10px] tracking-widest text-[#2B2B2B]/50 uppercase font-medium">Curated Modalities</span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#2B2B2B]/10 border border-[#2B2B2B]/10 shadow-sm">
-                
-                <div class="group relative bg-[#EBE9E4] h-[380px] md:h-[420px] flex flex-col justify-between cursor-pointer lab-visual">
-                    <div class="absolute inset-0 z-0 overflow-hidden">
-                        <img src="./assets/whitestone.jpg" alt="" class="w-full h-full object-cover">
-                    </div>
-
-                    <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full pointer-events-none">
-                        <div class="absolute top-0 right-0 p-6 md:p-8 text-[#C67D53]">
-                            <span class="iconify" data-icon="lucide:move-up-right" data-width="24"></span>
-                        </div>
-                        <div>
-                            <span class="iconify text-[#2B2B2B] mb-6" data-icon="lucide:bone" data-width="28" data-stroke-width="1.5"></span>
-                            <h4 class="font-serif text-2xl md:text-3xl text-[#2B2B2B] mb-2 tracking-tight font-light">Structural Realignment</h4>
-                            <p class="font-sans text-xs tracking-wider text-[#8A9A8B] uppercase font-medium">Osteopathie</p>
-                        </div>
-                        <p class="font-sans text-sm leading-relaxed text-[#2B2B2B]/70 max-w-sm font-light">
-                            We zoeken niet naar het symptoom, maar naar de stille oorzaak. Herstel van de geometrische integriteit.
-                        </p>
+    <footer>
+        <h3 class="footer-title">What our clients say on Google</h3>
+        
+        <div class="carousel-container">
+            <div class="carousel-track">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Absolutely amazing service! She really understood what my business needed. Highly recommended!"</p>
+                    <div class="review-author">
+                        <span>— Sarah Jenkins</span>
                     </div>
                 </div>
 
-                <div class="group relative bg-[#EBE9E4] h-[380px] md:h-[420px] flex flex-col justify-between cursor-pointer lab-visual">
-                    <div class="absolute inset-0 z-0 overflow-hidden">
-                         <img src="./assets/magnesiumpowder.jpg" alt="" class="w-full h-full object-cover">
-                    </div>
-
-                    <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full pointer-events-none">
-                         <div class="absolute top-0 right-0 p-6 md:p-8 text-[#C67D53]">
-                            <span class="iconify" data-icon="lucide:move-up-right" data-width="24"></span>
-                        </div>
-                        <div>
-                            <span class="iconify text-[#2B2B2B] mb-6" data-icon="lucide:activity" data-width="28" data-stroke-width="1.5"></span>
-                            <h4 class="font-serif text-2xl md:text-3xl text-[#2B2B2B] mb-2 tracking-tight font-light">Performance Maintenance</h4>
-                            <p class="font-sans text-xs tracking-wider text-[#8A9A8B] uppercase font-medium">Athletic recovery</p>
-                        </div>
-                        <p class="font-sans text-sm leading-relaxed text-[#2B2B2B]/70 max-w-sm font-light">
-                             Diep onderhoud voor de motor. We maken verklevingen los en optimaliseren hersteltijd.
-                        </p>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Professional, timely, and incredibly creative. The results exceeded my expectations."</p>
+                    <div class="review-author">
+                        <span>— Mark Rutte</span>
                     </div>
                 </div>
 
-                <div class="group relative bg-[#EBE9E4] h-[380px] md:h-[420px] flex flex-col justify-between cursor-pointer lab-visual">
-                    <div class="absolute inset-0 z-0 overflow-hidden">
-                         <img src="./assets/handmovinggracefully.jpg" alt="" class="w-full h-full object-cover">
-                    </div>
-
-                    <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full pointer-events-none">
-                         <div class="absolute top-0 right-0 p-6 md:p-8 text-[#C67D53]">
-                            <span class="iconify" data-icon="lucide:move-up-right" data-width="24"></span>
-                        </div>
-                        <div>
-                            <span class="iconify text-[#2B2B2B] mb-6" data-icon="lucide:wind" data-width="28" data-stroke-width="1.5"></span>
-                            <h4 class="font-serif text-2xl md:text-3xl text-[#2B2B2B] mb-2 tracking-tight font-light">Nervous System Reset</h4>
-                            <p class="font-sans text-xs tracking-wider text-[#8A9A8B] uppercase font-medium">Tai Chi & Cranio</p>
-                        </div>
-                        <p class="font-sans text-sm leading-relaxed text-[#2B2B2B]/70 max-w-sm font-light">
-                            De uitknop voor de stadse 'fight or flight'. Schakel je systeem terug naar rust.
-                        </p>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Great communication throughout the whole process. I will definitely come back for more."</p>
+                    <div class="review-author">
+                        <span>— Emma Stone</span>
                     </div>
                 </div>
 
-                <div class="group relative bg-[#EBE9E4] h-[380px] md:h-[420px] flex flex-col justify-between cursor-pointer lab-visual">
-                    <div class="absolute inset-0 z-0 overflow-hidden">
-                         <img src="./assets/sagegreenleaf.jpg" alt="" class="w-full h-full object-cover">
+                <div class="review-card">
+                    <div class="stars">★★★★☆</div>
+                    <p class="review-text">"Very helpful and insightful. Helped us streamline our workflow significantly."</p>
+                    <div class="review-author">
+                        <span>— David Miller</span>
                     </div>
+                </div>
 
-                    <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full pointer-events-none">
-                         <div class="absolute top-0 right-0 p-6 md:p-8 text-[#C67D53]">
-                            <span class="iconify" data-icon="lucide:move-up-right" data-width="24"></span>
-                        </div>
-                        <div>
-                            <span class="iconify text-[#2B2B2B] mb-6" data-icon="lucide:droplets" data-width="28" data-stroke-width="1.5"></span>
-                            <h4 class="font-serif text-2xl md:text-3xl text-[#2B2B2B] mb-2 tracking-tight font-light">DEEP RELAX</h4>
-                            <p class="font-sans text-xs tracking-wider text-[#8A9A8B] uppercase font-medium">full body</p>
-                        </div>
-                        <p class="font-sans text-sm leading-relaxed text-[#2B2B2B]/70 max-w-sm font-light">
-                            Het lymfestelsel is je interne rivier. Wij breken de dammen van stress af.
-                        </p>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"The best investment I made this year. Truly professional service with a personal touch."</p>
+                    <div class="review-author">
+                        <span>— Sophie de Vries</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Absolutely amazing service! She really understood what my business needed. Highly recommended!"</p>
+                    <div class="review-author">
+                        <span>— Sarah Jenkins</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Professional, timely, and incredibly creative. The results exceeded my expectations."</p>
+                    <div class="review-author">
+                        <span>— Mark Rutte</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Great communication throughout the whole process. I will definitely come back for more."</p>
+                    <div class="review-author">
+                        <span>— Emma Stone</span>
+                    </div>
+                </div>
+                 <div class="review-card">
+                    <div class="stars">★★★★☆</div>
+                    <p class="review-text">"Very helpful and insightful. Helped us streamline our workflow significantly."</p>
+                    <div class="review-author">
+                        <span>— David Miller</span>
+                    </div>
+                </div>
+                 <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"The best investment I made this year. Truly professional service with a personal touch."</p>
+                    <div class="review-author">
+                        <span>— Sophie de Vries</span>
                     </div>
                 </div>
 
             </div>
-        </div>
-    </section>
-
-    <section class="py-20 px-6 md:px-12 bg-[#EBE9E4] relative overflow-hidden pb-32">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16">
-            <div class="w-full md:w-1/2 order-2 md:order-1">
-                <div class="relative max-w-md ml-auto md:mr-12 reveal-up">
-                    <h3 class="font-serif text-3xl md:text-5xl text-[#2B2B2B] leading-tight tracking-tight mb-6 md:mb-8 font-light">
-                        Van de klimmuur naar de stiltetafel.
-                    </h3>
-                    <div class="space-y-4 md:space-y-6">
-                        <p class="font-sans text-sm md:text-base text-[#2B2B2B]/80 font-light leading-relaxed">
-                            Mijn reis begon met grip op graniet. Als klimmer leerde ik het lichaam begrijpen als een systeem van hefbomen en spanning.
-                        </p>
-                        <p class="font-sans text-sm md:text-base text-[#2B2B2B]/80 font-light leading-relaxed">
-                            Het was tijdens het herstelproces dat ik de stille architectuur onder de huid ontdekte. 'Lindy' is de samensmelting van jarenlange studie naar de biomechanica van beweging en de stilte die nodig is om die te herstellen.
-                        </p>
-                    </div>
-                    <div class="mt-8 md:mt-10 flex items-center gap-8">
-                        <div>
-                            <span class="block text-2xl font-serif text-[#C67D53] font-light">12+</span>
-                            <span class="text-xs uppercase tracking-widest text-[#2B2B2B]/50 font-medium">Jaren</span>
-                        </div>
-                        <div class="h-8 w-px bg-[#2B2B2B]/20"></div>
-                        <div>
-                            <span class="block text-2xl font-serif text-[#C67D53] font-light">800+</span>
-                            <span class="text-xs uppercase tracking-widest text-[#2B2B2B]/50 font-medium">Hersteld</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full md:w-1/2 order-1 md:order-2">
-                <div class="relative aspect-[4/5] overflow-hidden group shadow-2xl lab-visual">
-                    <img src="./assets/lindyosteo.jpg" alt="Lindy Portrait" class="w-full h-full object-cover">
-                    <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 text-white/30 mix-blend-soft-light" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="0.5" fill="none"></circle>
-                        <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="0.5" fill="none"></circle>
-                        <path d="M50 10 V90 M10 50 H90" stroke="currentColor" stroke-width="0.5"></path>
-                    </svg>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-16 md:py-20 px-6 md:px-12 bg-[#2B2B2B] text-[#EBE9E4] pb-32 md:pb-20">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
-            <div class="space-y-6 max-w-sm reveal-up">
-                <span class="font-sans text-sm tracking-[0.2em] font-medium uppercase text-[#EBE9E4]">Lindy</span>
-                <p class="font-sans text-sm text-[#EBE9E4]/60 font-light leading-relaxed">
-                    Organic Engineering voor het moderne menselijk lichaam.
-                </p>
-            </div>
-            
-            <div class="flex flex-col md:flex-row gap-12 md:gap-16 reveal-up" style="transition-delay: 0.1s;">
-                <div class="space-y-4">
-                    <h5 class="font-serif text-lg text-[#EBE9E4] font-light">Menu</h5>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="font-sans text-xs text-[#EBE9E4]/60 hover:text-[#C67D53] transition-colors uppercase tracking-widest font-light">Filosofie</a></li>
-                        <li><a href="#" class="font-sans text-xs text-[#EBE9E4]/60 hover:text-[#C67D53] transition-colors uppercase tracking-widest font-light">Diensten</a></li>
-                        <li><a href="#" class="font-sans text-xs text-[#EBE9E4]/60 hover:text-[#C67D53] transition-colors uppercase tracking-widest font-light">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-[#EBE9E4]/10 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
-             <span class="font-sans text-[10px] text-[#EBE9E4]/30 uppercase tracking-widest font-medium">© 2025 Lindy Bodywork</span>
-             <span class="font-sans text-[10px] text-[#EBE9E4]/30 uppercase tracking-widest font-medium">Grounded Serenity</span>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // 1. REVEAL SCRIPT
-            const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('in-view');
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: "0px 0px -50px 0px"
-            });
-            document.querySelectorAll('.reveal-up').forEach((el) => revealObserver.observe(el));
+        // Optioneel: JS voor mobiel menu toggle als je die wilt activeren
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
 
-            // 2. MOBIELE FOCUS SCRIPT
-            if (window.matchMedia("(pointer: coarse)").matches) {
-                const focusObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('mobile-active');
-                        } else {
-                            entry.target.classList.remove('mobile-active');
-                        }
-                    });
-                }, {
-                    threshold: 0.6,
-                    rootMargin: "-15% 0px -15% 0px"
-                });
-
-                document.querySelectorAll('.lab-visual').forEach((el) => focusObserver.observe(el));
-            }
-        });
+        // Simpele logic om menu te tonen op mobiel (alleen als de class 'hamburger' zichtbaar is via CSS)
+        if(window.getComputedStyle(hamburger).display !== 'none') {
+             hamburger.addEventListener('click', () => {
+                if(navLinks.style.display === 'block') {
+                    navLinks.style.display = 'none';
+                } else {
+                    navLinks.style.display = 'block';
+                    navLinks.style.position = 'absolute';
+                    navLinks.style.top = '60px';
+                    navLinks.style.left = '0';
+                    navLinks.style.width = '100%';
+                    navLinks.style.background = 'white';
+                    navLinks.style.textAlign = 'center';
+                    navLinks.style.padding = '1rem 0';
+                }
+             });
+        }
     </script>
-
 </body>
 </html>
