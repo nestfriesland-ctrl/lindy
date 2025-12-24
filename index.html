@@ -49,7 +49,7 @@
         .lab-visual video {
             transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease, filter 0.8s ease;
             filter: grayscale(100%);
-            opacity: 0.85; /* Iets verhoogd voor helderheid */
+            opacity: 0.9; 
             transform: scale(1.0);
             will-change: transform, filter, opacity;
             display: block;
@@ -71,15 +71,16 @@
         }
 
         /* --- UTILS --- */
-        /* Gradient aangepast: Wit verloop aan onderkant voor leesbaarheid donkere tekst */
+        /* Gradient zorgt voor leesbaarheid tekst op drukke achtergronden */
         .overlay-gradient {
             pointer-events: none;
-            background: linear-gradient(to top, rgba(235, 233, 228, 0.95) 0%, rgba(235, 233, 228, 0.6) 20%, rgba(235, 233, 228, 0) 100%);
+            /* Van de achtergrondkleur (#EBE9E4) naar transparant */
+            background: linear-gradient(to top, rgba(235, 233, 228, 1) 0%, rgba(235, 233, 228, 0.7) 40%, rgba(235, 233, 228, 0) 100%);
             z-index: 20;
         }
         
         .nav-backdrop {
-            background: linear-gradient(to bottom, rgba(235, 233, 228, 0.9) 0%, rgba(235, 233, 228, 0) 100%);
+            background: linear-gradient(to bottom, rgba(235, 233, 228, 0.95) 0%, rgba(235, 233, 228, 0) 100%);
         }
     </style>
 </head>
@@ -105,7 +106,7 @@
         
         <div class="relative w-full h-[50%] md:w-1/2 md:h-full overflow-hidden border-b border-[#2B2B2B]/10 md:border-b-0 md:border-r lab-visual group">
             <div class="absolute inset-0 bg-[#EBE9E4]">
-                <img src="https://images.unsplash.com/photo-1594818379496-da1e345b0ded?q=80&w=2000&auto=format&fit=crop" alt="Structure" class="w-full h-full object-cover">
+                <img src="./assets/warm_limestone.jpg" alt="Structure" class="w-full h-full object-cover">
             </div>
             
             <div class="absolute inset-0 overlay-gradient opacity-100 md:opacity-80"></div>
@@ -122,9 +123,9 @@
 
         <div class="relative w-full h-[50%] md:w-1/2 md:h-full overflow-hidden lab-visual group">
             <div class="absolute inset-0 bg-[#EBE9E4]">
-                <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                    <source src="https://videos.pexels.com/video-files/5502621/5502621-uhd_2560_1440_25fps.mp4" type="video/mp4">
-                    <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=2000&auto=format&fit=crop" alt="Fallback" class="w-full h-full object-cover">
+                 <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                    <source src="./assets/videoheaderlindy.mp4" type="video/mp4">
+                    <img src="./assets/waterripples.jpg" alt="Fallback" class="w-full h-full object-cover">
                 </video>
             </div>
 
@@ -141,10 +142,10 @@
         </div>
 
         <div class="absolute inset-0 flex items-center justify-center z-40 pointer-events-none reveal-up">
-            <div class="text-center px-4 w-full">
-                <h1 class="font-serif text-[12vw] md:text-7xl lg:text-8xl tracking-tighter text-[#2B2B2B] leading-[0.9] drop-shadow-sm mix-blend-hard-light opacity-90 font-light w-full">
+            <div class="text-center w-full px-2">
+                <h1 class="font-serif text-[13vw] md:text-7xl lg:text-8xl tracking-tighter text-[#2B2B2B] leading-[0.9] drop-shadow-sm mix-blend-hard-light opacity-90 font-light w-full">
                     Architect<br>
-                    <span class="text-[5vw] md:text-4xl lg:text-5xl italic font-light tracking-normal block mt-1 text-[#4A4A4A]">of the Body</span>
+                    <span class="text-[6vw] md:text-4xl lg:text-5xl italic font-light tracking-normal block mt-1 text-[#4A4A4A]">of the Body</span>
                 </h1>
             </div>
         </div>
@@ -159,7 +160,7 @@
                 </div>
                 
                 <div class="aspect-[3/4] rounded-sm relative shadow-xl lab-visual">
-                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2000&auto=format&fit=crop" alt="Lindy treating leg" class="object-cover w-full h-full">
+                    <img src="./assets/lindybeen.jpg" alt="Lindy treating leg" class="object-cover w-full h-full">
                 </div>
             </div>
             
@@ -196,7 +197,7 @@
                 
                 <div class="group relative bg-[#EBE9E4] h-[380px] md:h-[420px] flex flex-col justify-between cursor-pointer lab-visual">
                     <div class="absolute inset-0 z-0 overflow-hidden">
-                        <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg" alt="" class="w-full h-full object-cover">
+                        <img src="./assets/whitestone.jpg" alt="" class="w-full h-full object-cover">
                     </div>
 
                     <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full pointer-events-none">
@@ -216,7 +217,7 @@
 
                 <div class="group relative bg-[#EBE9E4] h-[380px] md:h-[420px] flex flex-col justify-between cursor-pointer lab-visual">
                     <div class="absolute inset-0 z-0 overflow-hidden">
-                         <img src="https://images.unsplash.com/photo-1595123550441-d377e017de6a?q=80&w=2000&auto=format&fit=crop" alt="" class="w-full h-full object-cover">
+                         <img src="./assets/magnesiumpowder.jpg" alt="" class="w-full h-full object-cover">
                     </div>
 
                     <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full pointer-events-none">
@@ -236,7 +237,7 @@
 
                 <div class="group relative bg-[#EBE9E4] h-[380px] md:h-[420px] flex flex-col justify-between cursor-pointer lab-visual">
                     <div class="absolute inset-0 z-0 overflow-hidden">
-                         <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg" alt="" class="w-full h-full object-cover">
+                         <img src="./assets/handmovinggracefully.jpg" alt="" class="w-full h-full object-cover">
                     </div>
 
                     <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full pointer-events-none">
@@ -256,7 +257,7 @@
 
                 <div class="group relative bg-[#EBE9E4] h-[380px] md:h-[420px] flex flex-col justify-between cursor-pointer lab-visual">
                     <div class="absolute inset-0 z-0 overflow-hidden">
-                         <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c543a9e1-f226-4ced-80b0-feb8445a75b9_1600w.jpg" alt="" class="w-full h-full object-cover">
+                         <img src="./assets/sagegreenleaf.jpg" alt="" class="w-full h-full object-cover">
                     </div>
 
                     <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full pointer-events-none">
@@ -308,7 +309,7 @@
             </div>
             <div class="w-full md:w-1/2 order-1 md:order-2">
                 <div class="relative aspect-[4/5] overflow-hidden group shadow-2xl lab-visual">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2000&auto=format&fit=crop" alt="Lindy Portrait" class="w-full h-full object-cover">
+                    <img src="./assets/lindyintens.jpg" alt="Lindy Portrait" class="w-full h-full object-cover">
                     <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 text-white/30 mix-blend-soft-light" viewBox="0 0 100 100">
                         <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="0.5" fill="none"></circle>
                         <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="0.5" fill="none"></circle>
