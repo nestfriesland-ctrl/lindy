@@ -23,9 +23,9 @@
             font-family: 'Cormorant Garamond', serif;
         }
 
-        /* --- ANIMATION ENGINE (NEST JOURNEYS) --- */
+        /* --- ANIMATION ENGINE (NEST JOURNEYS STYLE) --- */
         
-        /* 1. De Reveal Up Class (voor blokken tekst/kaarten) */
+        /* 1. De Reveal Up Class (voor tekst en kaarten) */
         .reveal-up {
             opacity: 0;
             transform: translateY(40px) scale(0.98);
@@ -37,47 +37,45 @@
             transform: translateY(0) scale(1);
         }
 
-        /* 2. De Visual Interaction (voor afbeeldingen/video) */
-        /* Start: Zwart-wit, 60% opacity */
-        .lab-visual img, .lab-visual video {
-            transition: transform 1.5s cubic-bezier(0.2, 1, 0.3, 1), opacity 1s ease, filter 1s ease;
+        /* 2. Visual Interaction (Exacte kopie van Journeys.html logica, aangepast aan Lindy kleuren) */
+        .lab-visual {
+            position: relative;
+            overflow: hidden;
+            /* Lichte border in rust (aangepast voor lichte achtergrond) */
+            border: 1px solid rgba(43, 43, 43, 0.1); 
+            transition: border-color 0.6s ease;
+        }
+
+        /* Hover OF Active (voor mobiel scrollen) triggert de border kleur */
+        .lab-visual:hover,
+        .lab-visual.active {
+            border-color: #C67D53; /* Lindy Accent Kleur */
+        }
+
+        .lab-visual img, 
+        .lab-visual video {
+            /* De 'Journeys' easing curve */
+            transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.6s ease, filter 0.6s ease;
             filter: grayscale(100%);
             opacity: 0.6;
             transform: scale(1.0);
             will-change: transform, filter, opacity;
         }
 
-        /* Active (wanneer in beeld): Kleur, 100% opacity, lichte zoom */
-        .lab-visual.active img, .lab-visual.active video {
+        /* Hover OF Active (voor mobiel scrollen) triggert de "Bloom" */
+        .lab-visual:hover img, 
+        .lab-visual:hover video,
+        .lab-visual.active img, 
+        .lab-visual.active video {
             transform: scale(1.05);
             opacity: 1;
             filter: grayscale(0%);
-        }
-
-        /* Desktop Hover Override (als je een muis hebt, reageert hij ook op hover) */
-        @media (hover: hover) {
-            .lab-visual:hover img, .lab-visual:hover video {
-                transform: scale(1.05);
-                opacity: 1;
-                filter: grayscale(0%);
-            }
         }
 
         /* --- UTILS --- */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Frame Border Effect */
-        .border-frame {
-            position: absolute; inset: 16px; 
-            border: 1px solid rgba(43, 43, 43, 0.1);
-            opacity: 0;
-            transition: opacity 1s ease;
-            pointer-events: none;
-            z-index: 20;
-        }
-        .lab-visual.active .border-frame { opacity: 1; }
-
     </style>
 </head>
 <body class="relative selection:bg-[#C67D53] selection:text-white">
@@ -102,7 +100,6 @@
             <div class="absolute inset-0 bg-[#EBE9E4]">
                 <img src="./assets/warm_limestone.jpg" alt="Structure" class="w-full h-full object-cover">
             </div>
-            <div class="border-frame"></div>
             
             <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12 z-30">
                 <div class="overflow-hidden">
@@ -121,7 +118,6 @@
                     <img src="./assets/waterripples.jpg" alt="Fallback" class="w-full h-full object-cover">
                 </video>
             </div>
-            <div class="border-frame"></div>
 
             <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12 md:items-end md:text-right z-30">
                 <div class="overflow-hidden">
@@ -149,9 +145,8 @@
                     <span class="font-sans text-xs tracking-[0.15em] uppercase text-[#2B2B2B]">Filosofie</span>
                 </div>
                 
-                <div class="aspect-[3/4] overflow-hidden rounded-sm relative shadow-xl lab-visual">
+                <div class="aspect-[3/4] rounded-sm relative shadow-xl lab-visual">
                     <img src="./assets/lindybeen.jpg" alt="Lindy treating leg" class="object-cover w-full h-full">
-                    <div class="border-frame"></div>
                 </div>
             </div>
             
@@ -186,11 +181,10 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#2B2B2B]/10 border border-[#2B2B2B]/10 shadow-sm">
                 
-                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between overflow-hidden cursor-pointer lab-visual reveal-up">
+                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between cursor-pointer lab-visual reveal-up">
                     <div class="absolute inset-0 z-0 overflow-hidden">
                         <img src="./assets/whitestone.jpg" alt="" class="w-full h-full object-cover">
                     </div>
-                    <div class="border-frame"></div>
 
                     <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full">
                         <div class="absolute top-0 right-0 p-8 text-[#C67D53]">
@@ -207,11 +201,10 @@
                     </div>
                 </div>
 
-                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between overflow-hidden cursor-pointer lab-visual reveal-up" style="transition-delay: 0.1s;">
+                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between cursor-pointer lab-visual reveal-up" style="transition-delay: 0.1s;">
                     <div class="absolute inset-0 z-0 overflow-hidden">
                          <img src="./assets/magnesiumpowder.jpg" alt="" class="w-full h-full object-cover">
                     </div>
-                    <div class="border-frame"></div>
 
                     <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full">
                          <div class="absolute top-0 right-0 p-8 text-[#C67D53]">
@@ -228,11 +221,10 @@
                     </div>
                 </div>
 
-                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between overflow-hidden cursor-pointer lab-visual reveal-up">
+                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between cursor-pointer lab-visual reveal-up">
                     <div class="absolute inset-0 z-0 overflow-hidden">
                          <img src="./assets/handmovinggracefully.jpg" alt="" class="w-full h-full object-cover">
                     </div>
-                    <div class="border-frame"></div>
 
                     <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full">
                          <div class="absolute top-0 right-0 p-8 text-[#C67D53]">
@@ -249,11 +241,10 @@
                     </div>
                 </div>
 
-                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between overflow-hidden cursor-pointer lab-visual reveal-up" style="transition-delay: 0.1s;">
+                <div class="group relative bg-[#EBE9E4] h-[420px] flex flex-col justify-between cursor-pointer lab-visual reveal-up" style="transition-delay: 0.1s;">
                     <div class="absolute inset-0 z-0 overflow-hidden">
                          <img src="./assets/sagegreenleaf.jpg" alt="" class="w-full h-full object-cover">
                     </div>
-                    <div class="border-frame"></div>
 
                     <div class="relative z-20 p-8 md:p-12 flex flex-col justify-between h-full">
                          <div class="absolute top-0 right-0 p-8 text-[#C67D53]">
@@ -305,7 +296,6 @@
             <div class="w-full md:w-1/2 order-1 md:order-2 reveal-up" style="transition-delay: 0.1s;">
                 <div class="relative aspect-[4/5] overflow-hidden group shadow-2xl lab-visual">
                     <img src="./assets/lindyintens.jpg" alt="Lindy Portrait" class="w-full h-full object-cover">
-                    <div class="border-frame"></div>
                     <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 text-white/30 mix-blend-soft-light" viewBox="0 0 100 100">
                         <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="0.5" fill="none"></circle>
                         <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="0.5" fill="none"></circle>
@@ -352,7 +342,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // Intersection Observer voor Reveal Animatie (blokken)
+            // 1. Reveal Animatie voor Tekst en Blokken
             const observerReveal = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -360,22 +350,23 @@
                     }
                 });
             }, {
-                threshold: 0.1, // Activeer als 10% van het element zichtbaar is
-                rootMargin: "0px 0px -50px 0px" // Trigger iets eerder aan de onderkant
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
             });
 
             document.querySelectorAll('.reveal-up').forEach((el) => observerReveal.observe(el));
 
-            // Intersection Observer voor Visuals (afbeeldingen)
+            // 2. Lab Visual Animatie (Zorgt dat afbeeldingen 'activeren' bij scrollen op mobiel)
             const observerVisuals = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
+                        // Voegt 'active' toe, wat in CSS hetzelfde doet als :hover
                         entry.target.classList.add('active');
                     }
                 });
             }, {
-                threshold: 0.15, // Iets later triggeren voor dramatisch effect
-                rootMargin: "0px 0px 0px 0px"
+                threshold: 0.2, // Iets later triggeren voor het "inbloeien" effect
+                rootMargin: "0px"
             });
 
             document.querySelectorAll('.lab-visual').forEach((el) => observerVisuals.observe(el));
