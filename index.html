@@ -71,10 +71,8 @@
         }
 
         /* --- UTILS --- */
-        /* Gradient zorgt voor leesbaarheid tekst op drukke achtergronden */
         .overlay-gradient {
             pointer-events: none;
-            /* Van de achtergrondkleur (#EBE9E4) naar transparant */
             background: linear-gradient(to top, rgba(235, 233, 228, 1) 0%, rgba(235, 233, 228, 0.7) 40%, rgba(235, 233, 228, 0) 100%);
             z-index: 20;
         }
@@ -87,20 +85,19 @@
 <body class="relative selection:bg-[#C67D53] selection:text-white">
 
     <nav class="fixed top-0 left-0 w-full z-50 pointer-events-none nav-backdrop h-24 transition-all duration-500">
-        <div class="px-6 py-6 flex justify-between items-start">
+        <div class="px-6 py-6 flex justify-between items-center">
+            
             <a href="#" class="pointer-events-auto group relative">
-                <span class="font-sans text-xs tracking-[0.2em] font-bold text-[#2B2B2B] uppercase mix-blend-darken">Lindy</span>
-                <div class="h-[1px] w-0 group-hover:w-full bg-[#C67D53] transition-all duration-700 ease-out mt-1"></div>
+                <img src="assets/logolindy.png" alt="Lindy Logo" class="h-10 w-auto object-contain mix-blend-multiply">
             </a>
+
+            <a href="https://wa.me/31654323454" target="_blank" class="pointer-events-auto group flex items-center gap-3 px-5 h-10 rounded-full bg-[#EBE9E4]/40 backdrop-blur-md border border-[#C67D53]/40 text-[#2B2B2B] hover:bg-[#C67D53]/10 hover:border-[#C67D53] transition-all duration-300">
+                <span class="text-[10px] md:text-xs tracking-widest uppercase font-medium">Boek Sessie</span>
+                <span class="iconify group-hover:translate-x-0.5 transition-transform duration-300" data-icon="lucide:arrow-right" data-width="14"></span>
+            </a>
+
         </div>
     </nav>
-
-    <div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center reveal-up w-full px-6 pointer-events-none">
-        <a href="https://wa.me/31654323454" target="_blank" class="pointer-events-auto shadow-2xl shadow-[#C67D53]/20 flex items-center justify-between px-6 h-14 w-full max-w-sm rounded-full bg-[#C67D53] text-[#EBE9E4] hover:bg-[#A86440] transition-all duration-500 border border-[#EBE9E4]/20 group">
-            <span class="text-xs tracking-widest uppercase font-medium">Boek Sessie</span>
-            <span class="iconify group-hover:translate-x-1 transition-transform duration-300" data-icon="lucide:arrow-right" data-width="16"></span>
-        </a>
-    </div>
 
     <header class="relative w-full h-[100svh] min-h-[600px] flex flex-col md:flex-row overflow-hidden">
         
@@ -123,7 +120,7 @@
 
         <div class="relative w-full h-[50%] md:w-1/2 md:h-full overflow-hidden lab-visual group">
             <div class="absolute inset-0 bg-[#EBE9E4]">
-                 <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover">
                     <source src="./assets/videoheaderlindy.mp4" type="video/mp4">
                     <img src="./assets/waterripples.jpg" alt="Fallback" class="w-full h-full object-cover">
                 </video>
@@ -160,7 +157,7 @@
                 </div>
                 
                 <div class="aspect-[3/4] rounded-sm relative shadow-xl lab-visual">
-                    <img src="./assets/humanback.jpg" alt="Lindy treating leg" class="object-cover w-full h-full">
+                    <img src="./assets/lindybeen.jpg" alt="Lindy treating leg" class="object-cover w-full h-full">
                 </div>
             </div>
             
@@ -309,7 +306,7 @@
             </div>
             <div class="w-full md:w-1/2 order-1 md:order-2">
                 <div class="relative aspect-[4/5] overflow-hidden group shadow-2xl lab-visual">
-                    <img src="./assets/lindyosteo.jpg" alt="Lindy Portrait" class="w-full h-full object-cover">
+                    <img src="./assets/lindyintens.jpg" alt="Lindy Portrait" class="w-full h-full object-cover">
                     <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 text-white/30 mix-blend-soft-light" viewBox="0 0 100 100">
                         <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="0.5" fill="none"></circle>
                         <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="0.5" fill="none"></circle>
