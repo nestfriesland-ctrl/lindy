@@ -23,32 +23,32 @@
             font-family: 'Cormorant Garamond', serif;
         }
 
-        /* --- 1. REVEAL ANIMATIE (Voor tekstblokken) --- */
+        /* --- 1. INTRO ANIMATIE (De kaart verschijnt) --- */
         .reveal-up {
             opacity: 0;
             transform: translateY(40px) scale(0.98);
             transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
-        .reveal-up.active {
+        .reveal-up.in-view {
             opacity: 1;
             transform: translateY(0) scale(1);
         }
 
-        /* --- 2. LAB VISUAL ANIMATIE (Voor afbeeldingen) --- */
-        /* Container style */
+        /* --- 2. INTERACTIE ANIMATIE (Zwart-wit naar Kleur) --- */
+        
         .lab-visual {
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(43, 43, 43, 0.1); 
-            transition: border-color 1s ease;
-            background-color: #EBE9E4; /* Voorkomt flitsen */
+            transition: border-color 0.8s ease;
+            background-color: #EBE9E4;
         }
 
-        /* STARTSTAAT: Zwart-wit, transparanter, iets uitgezoomd (of normaal) */
+        /* RUSTSTAAT: Zwart-wit, iets transparant */
         .lab-visual img, 
         .lab-visual video {
-            transition: transform 1.5s cubic-bezier(0.2, 1, 0.3, 1), opacity 1s ease, filter 1s ease;
+            transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease, filter 0.8s ease;
             filter: grayscale(100%);
             opacity: 0.6;
             transform: scale(1.0);
@@ -56,16 +56,18 @@
             display: block;
         }
 
-        /* EINDSTAAT (Getriggerd door JS .active of Hover op desktop) */
+        /* ACTIEVE STAAT (Muis Hover OF Mobiele Focus Class) */
+        /* De border kleurt */
         .lab-visual:hover,
-        .lab-visual.active {
+        .lab-visual.mobile-active {
             border-color: #C67D53;
         }
 
+        /* De afbeelding bloeit open (kleur + zoom) */
         .lab-visual:hover img, 
         .lab-visual:hover video,
-        .lab-visual.active img, 
-        .lab-visual.active video {
+        .lab-visual.mobile-active img, 
+        .lab-visual.mobile-active video {
             transform: scale(1.05);
             opacity: 1;
             filter: grayscale(0%);
@@ -340,36 +342,41 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // 1. Reveal Animatie voor Tekst (Scroll van beneden naar boven)
-            const observerReveal = new IntersectionObserver((entries) => {
+            // 1. REVEAL SCRIPT (Zorgt dat tekst en blokken mooi invliegen)
+            const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
+                        entry.target.classList.add('in-view');
                     }
                 });
             }, {
                 threshold: 0.1,
                 rootMargin: "0px 0px -50px 0px"
             });
-            document.querySelectorAll('.reveal-up').forEach((el) => observerReveal.observe(el));
+            document.querySelectorAll('.reveal-up').forEach((el) => revealObserver.observe(el));
 
-            // 2. Lab Visual Animatie (Zwart-wit -> Kleur met VERTRAGING voor zichtbaarheid)
-            const observerVisuals = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // We voegen een kleine vertraging toe (250ms).
-                        // Hierdoor ziet de gebruiker EERST de zwart-wit versie, 
-                        // en ziet hij het daarna pas veranderen naar kleur.
-                        setTimeout(() => {
-                            entry.target.classList.add('active');
-                        }, 250); 
-                    }
+            // 2. MOBIELE FOCUS SCRIPT (Zorgt voor de "Interactie" op mobiel)
+            // Dit script draait ALLEEN als het apparaat Touch heeft (dus niet op desktop)
+            if (window.matchMedia("(pointer: coarse)").matches) {
+                
+                const focusObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        // Als de afbeelding in het MIDDEN van het scherm komt (isIntersecting met threshold 0.5)
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('mobile-active');
+                        } else {
+                            // Als hij het midden verlaat -> Terug naar ruststaat (Verwijder active)
+                            entry.target.classList.remove('mobile-active');
+                        }
+                    });
+                }, {
+                    threshold: 0.5, // Moet voor 50% zichtbaar zijn om te activeren
+                    rootMargin: "-10% 0px -10% 0px" // Maakt de 'actieve zone' in het midden van het scherm
                 });
-            }, {
-                threshold: 0.25, // Pas activeren als 25% van de kaart in beeld is
-                rootMargin: "0px"
-            });
-            document.querySelectorAll('.lab-visual').forEach((el) => observerVisuals.observe(el));
+
+                document.querySelectorAll('.lab-visual').forEach((el) => focusObserver.observe(el));
+            }
+            // Op Desktop doet Javascript NIETS met de afbeeldingen, daar regelt CSS :hover alles.
         });
     </script>
 
